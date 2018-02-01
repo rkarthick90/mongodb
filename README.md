@@ -18,10 +18,6 @@ MongoDB is a free and open-source cross-platform document-oriented database prog
 | 563479cc9a8a4246bd57d784 |	33 |	Nicole | 333  |
 
 
-## What is Meant NoSQL
-
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://youtu.be/qUV2j3XBRHc)
-
 ## Common Terms in MongoDB
 
 Below are the a few of the common terms used in MongoDB
