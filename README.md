@@ -69,7 +69,11 @@ Below are some of the key term differences between MongoDB and RDBMS
 
 
 
-## Create Database
+### Create Database
+
+To create a database in MongoDB, start by creating a MongoClient object, then specify a connection URL with the correct ip address and the name of the database you want to create.
+
+MongoDB will create the database if it does not exist, and make a connection to it.
 
 ```
 var mongo = require('mongodb');
@@ -83,3 +87,320 @@ mongoClient.connect(url, function(err, db){
 })
 ```
 
+### Create Collections
+
+To create a collection in MongoDB, use the `createCollection()` method:
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.createCollection("customers", function(err, res) {
+    if (err) throw err;
+    console.log("Collection created!");
+    db.close();
+  });
+}); 
+```
+
+### Insert one document into Collection
+
+To insert a record, or document as it is called in MongoDB, into a collection, we use the `insertOne()` method.
+
+A document in MongoDB is the same as a record in MySQL
+
+The first parameter of the `insertOne()` method is an object containing the name(s) and value(s) of each field in the document you want to insert.
+
+It also takes a callback function where you can work with any errors, or the result of the insertion:
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myobj = { name: "Company Inc", address: "Highway 37" };
+  dbo.collection("customers").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+}); 
+```
+
+### Insert Multiple Documents into Collection
+
+To insert multiple documents into a collection in MongoDB, we use the `insertMany()` method.
+
+The first parameter of the `insertMany()` method is an array of objects, containing the data you want to insert.
+
+It also takes a callback function where you can work with any errors, or the result of the insertion:
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myobj = [
+    { name: 'John', address: 'Highway 71'},
+    { name: 'Peter', address: 'Lowstreet 4'},
+    { name: 'Amy', address: 'Apple st 652'},
+    { name: 'Hannah', address: 'Mountain 21'},
+    { name: 'Michael', address: 'Valley 345'},
+    { name: 'Sandy', address: 'Ocean blvd 2'},
+    { name: 'Betty', address: 'Green Grass 1'},
+    { name: 'Richard', address: 'Sky st 331'},
+    { name: 'Susan', address: 'One way 98'},
+    { name: 'Vicky', address: 'Yellow Garden 2'},
+    { name: 'Ben', address: 'Park Lane 38'},
+    { name: 'William', address: 'Central st 954'},
+    { name: 'Chuck', address: 'Main Road 989'},
+    { name: 'Viola', address: 'Sideway 1633'}
+  ];
+  dbo.collection("customers").insertMany(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("Number of documents inserted: " + res.insertedCount);
+    db.close();
+  });
+}); 
+```
+
+### Find one Record/Document
+
+To select data from a collection in MongoDB, we can use the `findOne()` method.
+
+The `findOne()` method returns the first occurrence in the selection.
+
+The first parameter of the `findOne()` method is a query object. In this example we use an empty query object, which selects all documents in a collection (but returns only the first document).
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("customers").findOne({}, function(err, result) {
+    if (err) throw err;
+    console.log(result.name);
+    db.close();
+  });
+});
+```
+
+### FindAll Documents (Select *)
+
+To select data from a table in MongoDB, we can also use the `find()` method.
+
+The `find()` method returns all occurrences in the selection.
+
+The first parameter of the `find()` method is a query object. In this example we use an empty query object, which selects all documents in the collection.
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("customers").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+}); 
+```
+
+### Search / Querying
+
+When finding documents in a collection, you can filter the result by using a query object.
+
+The first argument of the `find()` method is a query object, and is used to limit the search.
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var query = { address: "Park Lane 38" };
+  dbo.collection("customers").find(query).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+}); 
+```
+
+You can write regular expressions to find exactly what you are searching for.
+
+Regular expressions can only be used to query strings.
+
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var query = { address: /^S/ };
+  dbo.collection("customers").find(query).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+});
+```
+
+### Delete Documents/Records
+
+To delete a record, or document as it is called in MongoDB, we use the `deleteOne()` method.
+
+The first parameter of the `deleteOne()` method is a query object defining which document to delete.
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = { address: 'Mountain 21' };
+  dbo.collection("customers").deleteOne(myquery, function(err, obj) {
+    if (err) throw err;
+    console.log("1 document deleted");
+    db.close();
+  });
+}); 
+```
+
+To delete more than one document, use the deleteMany() method.
+
+The first parameter of the `deleteMany()` method is a query object defining which documents to delete.
+(Using Regular Expression delete Many)
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = { address: /^O/ };
+  dbo.collection("customers").deleteMany(myquery, function(err, obj) {
+    if (err) throw err;
+    console.log(obj.result.n + " document(s) deleted");
+    db.close();
+  });
+}); 
+```
+
+### Drop Collection
+
+You can delete a table, or collection as it is called in MongoDB, by using the `drop()` method.
+
+The `drop()` method takes a callback function containing the error object and the result parameter which returns true if the collection was dropped successfully, otherwise it returns false.
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("customers").drop(function(err, delOK) {
+    if (err) throw err;
+    if (delOK) console.log("Collection deleted");
+    db.close();
+  });
+}); 
+```
+You can also use the `dropCollection()` method to delete a table (collection).
+
+The `dropCollection()` method takes two parameters: the name of the collection and a callback function.
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.dropCollection("customers", function(err, delOK) {
+    if (err) throw err;
+    if (delOK) console.log("Collection deleted");
+    db.close();
+  });
+}); 
+```
+
+### Update Document / Record
+
+You can update a record, or document as it is called in MongoDB, by using the `updateOne()` method.
+
+The first parameter of the `updateOne()` method is a query object defining which document to update.
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://127.0.0.1:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = { address: "Valley 345" };
+  var newvalues = { name: "Mickey", address: "Canyon 123" };
+  dbo.collection("customers").updateOne(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+    console.log("1 document updated");
+    db.close();
+  });
+}); 
+```
+
+To update all documents that meets the criteria of the query, use the `updateMany()` method.
+
+(Using Regular Expression Update Many)
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://127.0.0.1:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = { address: /^S/ };
+  var newvalues = {$set: {name: "Minnie"} };
+  dbo.collection("customers").updateMany(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+    console.log(res.result.nModified + " document(s) updated");
+    db.close();
+  });
+}); 
+```
+
+### Limit fetching results
+
+To limit the result in MongoDB, we use the `limit()` method.The `limit()` method takes one parameter, a number defining how many documents to return.
+
+```
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("customers").find().limit(5).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+}); 
+```
