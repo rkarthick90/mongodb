@@ -8,9 +8,6 @@ MongoDB is a free and open-source cross-platform document-oriented database prog
 4. The data model available within MongoDB allows you to represent hierarchical relationships, to store arrays, and other more complex structures more easily.
 5. Scalability – The MongoDB environments are very scalable. Companies across the world have defined clusters with some of them running 100+ nodes with around millions of documents within the database
 
-## Common Terms in MongoDB
-
-Below are the a few of the common terms used in MongoDB
 
 | _Id |	CustomerID |	CustomerName |	OrderID |
 |----|-------------|-----------------|----------|
@@ -19,6 +16,9 @@ Below are the a few of the common terms used in MongoDB
 | 563479cc9a8a4246bd57d784 |	33 |	Nicole | 333  |
 
 
+## Common Terms in MongoDB
+
+Below are the a few of the common terms used in MongoDB
 
 1. `_id` – This is a field required in every MongoDB document. The _id field represents a unique value in the MongoDB document. The _id field is like the document's primary key. If you create a new document without an _id field, MongoDB will automatically create the field. So for example, if we see the example of the above customer table, Mongo DB will add a 24 digit unique identifier to each document in the collection.
 
