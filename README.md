@@ -8,6 +8,8 @@ MongoDB is a free and open-source cross-platform document-oriented database prog
 4. The data model available within MongoDB allows you to represent hierarchical relationships, to store arrays, and other more complex structures more easily.
 5. Scalability – The MongoDB environments are very scalable. Companies across the world have defined clusters with some of them running 100+ nodes with around millions of documents within the database
 
+(https://cdn.guru99.com/images/MongoDB/112015_1051_Introductio1.png)
+
 
 | _Id |	CustomerID |	CustomerName |	OrderID |
 |----|-------------|-----------------|----------|
