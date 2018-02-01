@@ -12,21 +12,24 @@ MongoDB is a free and open-source cross-platform document-oriented database prog
 
 Below are the a few of the common terms used in MongoDB
 
-1. `_id` – This is a field required in every MongoDB document. The _id field represents a unique value in the MongoDB document. The _id field is like the document's primary key. If you create a new document without an _id field, MongoDB will automatically create the field. So for example, if we see the example of the above customer table, Mongo DB will add a 24 digit unique identifier to each document in the collection.
-
-
-|_Id |	CustomerID |	CustomerName |	OrderID |
+| _Id |	CustomerID |	CustomerName |	OrderID |
 |----|-------------|-----------------|----------|
 | 563479cc8a8a4246bd27d784 |	11 |	Guru99 | 111 |
 | 563479cc7a8a4246bd47d784 |	22 |	Trevor Smith | 	222 |
 | 563479cc9a8a4246bd57d784 |	33 |	Nicole | 333  |
 
+1. `_id` – This is a field required in every MongoDB document. The _id field represents a unique value in the MongoDB document. The _id field is like the document's primary key. If you create a new document without an _id field, MongoDB will automatically create the field. So for example, if we see the example of the above customer table, Mongo DB will add a 24 digit unique identifier to each document in the collection.
 
 2. `Collection` – This is a grouping of MongoDB documents. A collection is the equivalent of a table which is created in any other RDMS such as Oracle or MS SQL. A collection exists within a single database. As seen from the introduction collections don't enforce any sort of structure.
+
 3. `Cursor` – This is a pointer to the result set of a query. Clients can iterate through a cursor to retrieve results.
+
 4. `Database` – This is a container for collections like in RDMS wherein it is a container for tables. Each database gets its own set of files on the file system. A MongoDB server can store multiple databases.
+
 5. `Document` - A record in a MongoDB collection is basically called a document. The document in turn will consist of field name and values.
+
 6. `Field` - A name-value pair in a document. A document has zero or more fields. Fields are analogous to columns in relational databases.
+
 7. `JSON` – This is known as JavaScript Object Notation. This is a human-readable, plain text format for expressing structured data. JSON is currently supported in many programming languages. 
 
 Just a quick note on the key difference between the _id field and a normal collection field. The _id field is used to uniquely identify the documents in a collection and is automatically added by MongoDB when the collection is created. 
