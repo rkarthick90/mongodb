@@ -12,13 +12,15 @@ MongoDB is a free and open-source cross-platform document-oriented database prog
 
 Below are the a few of the common terms used in MongoDB
 
-1. `_id` – This is a field required in every MongoDB document. The _id field represents a unique value in the MongoDB document. The _id field is like the document's primary key. If you create a new document without an _id field, MongoDB will automatically create the field. So for example, if we see the example of the above customer table, Mongo DB will add a 24 digit unique identifier to each document in the collection. |
+1. `_id` – This is a field required in every MongoDB document. The _id field represents a unique value in the MongoDB document. The _id field is like the document's primary key. If you create a new document without an _id field, MongoDB will automatically create the field. So for example, if we see the example of the above customer table, Mongo DB will add a 24 digit unique identifier to each document in the collection.
+
 
 |_Id |	CustomerID |	CustomerName |	OrderID |
 |----|-------------|-----------------|----------|
 | 563479cc8a8a4246bd27d784 |	11 |	Guru99 | 111 |
 | 563479cc7a8a4246bd47d784 |	22 |	Trevor Smith | 	222 |
 | 563479cc9a8a4246bd57d784 |	33 |	Nicole | 333  |
+
 
 2. `Collection` – This is a grouping of MongoDB documents. A collection is the equivalent of a table which is created in any other RDMS such as Oracle or MS SQL. A collection exists within a single database. As seen from the introduction collections don't enforce any sort of structure.
 3. `Cursor` – This is a pointer to the result set of a query. Clients can iterate through a cursor to retrieve results.
